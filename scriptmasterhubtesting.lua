@@ -1,1 +1,1 @@
--- autoheal 4 sr, oneshot 4 sr, jumppower 4 sr & sb, exploiter detector 4 sr, inf jump 4 sr, bomb bus 4 sr, homerun spam slap farm
+-- autoheal 4 sr, oneshot 4 sr, jumppower 4 sr & sb, exploiter detector 4 sr, inf jump 4 sr, bomb bus 4 sr, use perm items improvement
