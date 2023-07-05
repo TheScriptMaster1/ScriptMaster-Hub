@@ -43,9 +43,9 @@ MAIN_TAB:AddToggle({
 		getgenv().saura = bool
 
       while getgenv().saura do
-         task.wait(.34)
+         task.wait(.4)
       for i,v in pairs(game:GetService("Players"):GetChildren()) do
-         if v.Character["Right Arm"]:FindFirstChild("SelectionBox") == nil and v ~= PLAYER then
+         if v.Character["Right Arm"]:FindFirstChild("SelectionBox") == nil and v ~= game.Players.LocalPlayer then
          local target = v.Character.HumanoidRootPart
          local mag = (target.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
          if getgenv().aurareach > mag then
@@ -139,12 +139,13 @@ local function boss()
       return "Tree Lord";
    elseif game.Workspace:FindFirstChild("Mushroom King") then
       return "Mushroom King";
+   elseif game.Workspace:FindFirstChild("Scarecrow") then
+      return "Scarecrow";
    else
-      return "none";
+	  return "none";
    end
 end
 
--- Dog, Cat, Tree Lord, Mushroom King
 MISC_TAB:AddToggle({
 	Name = "Auto-Kill Bosses",
 	Default = false,
@@ -164,6 +165,29 @@ MISC_TAB:AddToggle({
 	end    
 })
 
+MISC_TAB:AddToggle({
+	Name = "Destroy Nametag",
+	Default = false,
+	Callback = function(bool)
+		getgenv().nametag = bool
+
+		while getgenv().nametag do
+			task.wait()
+			pcall(function()
+				game.Players.LocalPlayer.Character.Head["Name Tag"]:Destroy()
+			end)
+		end
+	end    
+})
+
+MISC_TAB:AddToggle({
+	Name = "Anti Cauldron",
+	Default = false,
+	Callback = function(Value)
+		workspace.Main.Shop.Attic.Alchemy["Alchemist Cauldron"]["Character Kill"].CanTouch = not workspace.Main.Shop.Attic.Alchemy["Alchemist Cauldron"]["Character Kill"].CanTouch
+	end    
+})
+
 BADGES_TAB:AddButton({
 	Name = "Get Boing",
 	Callback = function()
@@ -171,13 +195,159 @@ BADGES_TAB:AddButton({
   	end    
 })
 
+local cake = true
+
 BADGES_TAB:AddButton({
 	Name = "Get Cake",
 	Callback = function()
-      local cframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		if cake == true then
+		cake = false
+      	local cframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(160,271,29)
-      task.wait(.1)
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cframe
+      	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(160,271,29)
+      	task.wait(.1)
+      	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cframe
+		cake = true
   	end    
+end
 })
+
+
+local ascend = true
+
+BADGES_TAB:AddButton({
+	Name = "Get Ascend",
+	Callback = function()
+		if ascend == true then
+		if game.Players.LocalPlayer.leaderstats.Ability.Value == "Lemon" then
+			if game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y < 240 then
+				ascend = false
+				game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilityEvent"):FireServer(1)
+				task.wait(.5)
+      			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(147,19,148)
+				ascend = true
+			else
+				OrionLib:MakeNotification({
+					Name = "Enter Arena",
+					Content = "You need to enter the arena for this to work.",
+					Image = "rbxassetid://4483345998",
+					Time = 3
+				})
+			end
+		else
+			OrionLib:MakeNotification({
+				Name = "Lemon Ability Required",
+				Content = "You need lemon for this to work.",
+				Image = "rbxassetid://4483345998",
+				Time = 3
+			})
+		end
+  	end  
+end  
+})
+
+
+local shopping = true
+
+BADGES_TAB:AddButton({
+	Name = "Get Grocery Shopping",
+	Callback = function()
+	if shopping == true then
+		shopping = false
+      	local cframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+      	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(160,271,29)
+      	task.wait(.1)
+	 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-101, 23, -97)
+	 	task.wait(.1)
+	 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(150, -21, 150)
+	 	task.wait(.1)
+    	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cframe
+		shopping = true
+  	end  
+end 
+})
+
+BADGES_TAB:AddButton({
+	Name = "Get Backrooms",
+	Callback = function()
+	if game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y < 240 then
+      	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-121, 19, -119)
+	else
+		OrionLib:MakeNotification({
+			Name = "Enter Arena",
+			Content = "You need to enter the arena for this to work.",
+			Image = "rbxassetid://4483345998",
+			Time = 5
+		})
+  	end    
+end
+})
+
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+	if msg == "dev mode" then
+		local DEV_MODE = Window:MakeTab({
+			Name = "Developer Mode",
+			Icon = "rbxassetid://11860859170",
+			PremiumOnly = false
+		})
+
+		OrionLib:MakeNotification({
+			Name = "Developer Mode",
+			Content = "Developer Mode has been unlocked",
+			Image = "rbxassetid://1202200114",
+			Time = 5
+		})
+
+		DEV_MODE:AddButton({
+			Name = "Print CFrame",
+			Callback = function()
+				print(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+			end    
+		})
+
+		DEV_MODE:AddToggle({
+			Name = "ban-risk punch aura",
+			Default = false,
+			Callback = function(bool)
+				getgenv().aura = bool
+		
+			  while getgenv().aura do
+				 task.wait(.001)
+			  for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				 if v.Character["Right Arm"]:FindFirstChild("SelectionBox") == nil and v ~= game.Players.LocalPlayer then
+				 local target = v.Character.HumanoidRootPart
+				 local mag = (target.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+				 if getgenv().aurareach > mag then
+				 local args = {
+				 [1] = workspace:WaitForChild(target.Parent.Name),
+				 [2] = Vector3.new(target.Position),
+				 [3] = 1.8757749795913696,
+				 [4] = game:GetService("Players"):WaitForChild(target.Parent.Name).Character:FindFirstChild("Head")
+				 }
+		
+				 game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("Punch"):FireServer(unpack(args))
+			  end
+				 end
+					end
+					   end
+						   end    
+		})
+
+		DEV_MODE:AddColorpicker({
+			Name = "Hitbox Color",
+			Default = Color3.fromRGB(255, 255, 255),
+			Callback = function(Value)
+				game.Players.LocalPlayer.Character:WaitForChild("Hitbox").Color = Value
+			end	  
+		})
+
+		DEV_MODE:AddToggle({
+			Name = "ESP",
+			Default = false,
+			Callback = function(bool)
+				print("wip")
+			end    
+		})
+	end
+end)
