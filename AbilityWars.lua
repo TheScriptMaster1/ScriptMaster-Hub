@@ -183,9 +183,9 @@ MISC_TAB:AddToggle({
 MISC_TAB:AddToggle({
 	Name = "Anti Cauldron",
 	Default = false,
-	Callback = function(Value)
-		workspace.Main.Shop.Attic.Alchemy["Alchemist Cauldron"]["Character Kill"].CanTouch = not workspace.Main.Shop.Attic.Alchemy["Alchemist Cauldron"]["Character Kill"].CanTouch
-	end    
+	Callback = function(bool)
+		workspace.Main.Shop.Attic.Alchemy["Alchemist Cauldron"]["Character Kill"].CanTouch = not bool
+	end
 })
 
 BADGES_TAB:AddButton({
