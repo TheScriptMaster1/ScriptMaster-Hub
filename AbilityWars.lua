@@ -6,19 +6,25 @@ local Window = OrionLib:MakeWindow({Name = "ScriptMaster Hub | Ability Wars", Hi
 
 local MAIN_TAB = Window:MakeTab({
 	Name = "Main",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7539983773",
 	PremiumOnly = false
 })
 
 local MISC_TAB = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://484211948",
 	PremiumOnly = false
 })
 
 local BADGES_TAB = Window:MakeTab({
 	Name = "Badges",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://206410289",
+	PremiumOnly = false
+})
+
+local SECRETS_TAB = Window:MakeTab({
+	Name = "Secrets",
+	Icon = "rbxassetid://4633508356",
 	PremiumOnly = false
 })
 
@@ -284,6 +290,55 @@ BADGES_TAB:AddButton({
 end
 })
 
+SECRETS_TAB:AddButton({
+	Name = "Equip Jester (1500 PUNCHES)",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Jester")
+	end    
+})
+
+SECRETS_TAB:AddButton({
+	Name = "Equip Spectator",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Spectator")
+	end    
+})
+
+SECRETS_TAB:AddButton({
+	Name = "Equip Cheese",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Cheese")
+	end    
+})
+
+SECRETS_TAB:AddButton({
+	Name = "Equip Burger (6000 PUNCHES)",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Burger")
+	end    
+})
+
+SECRETS_TAB:AddButton({
+	Name = "Equip Seat",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Seat")
+	end    
+})
+
+SECRETS_TAB:AddButton({
+	Name = "Equip Kick (MUST CLICK IN ARENA)",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("BuyItem"):FireServer("Gain Kick")
+	end    
+})
+
+SECRETS_TAB:AddButton({
+	Name = "Equip Butter (5000 PUNCHES)",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Butter")
+	end    
+})
+
 game.Players.LocalPlayer.Chatted:Connect(function(msg)
 	if msg == "dev mode" then
 		local DEV_MODE = Window:MakeTab({
@@ -349,5 +404,54 @@ game.Players.LocalPlayer.Chatted:Connect(function(msg)
 				print("wip")
 			end    
 		})
-	end
+
+	DEV_MODE:AddButton({
+		Name = "Equip Jester (1500 PUNCHES)",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Jester")
+		end    
+	})
+
+	DEV_MODE:AddButton({
+		Name = "Equip Spectator",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Spectator")
+		end    
+	})
+
+	DEV_MODE:AddButton({
+		Name = "Equip Cheese",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Cheese")
+		end    
+	})
+
+	DEV_MODE:AddButton({
+		Name = "Equip Burger (6000 PUNCHES)",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Burger")
+		end    
+	})
+
+	DEV_MODE:AddButton({
+		Name = "Equip Seat",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Seat")
+		end    
+	})
+	
+	DEV_MODE:AddButton({
+		Name = "Equip Kick (MUST CLICK IN ARENA)",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("BuyItem"):FireServer("Gain Kick")
+		end    
+	})
+
+	DEV_MODE:AddButton({
+		Name = "Equip Butter (5000 PUNCHES)",
+		Callback = function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Remote Events"):WaitForChild("AbilitySelect"):FireServer("Butter")
+		end    
+	})
+end
 end)
